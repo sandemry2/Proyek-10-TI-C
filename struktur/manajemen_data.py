@@ -1,4 +1,5 @@
 """
+structures/manajemen_data.py — Anggota 2
 ════════════════════════════════════════
 Implementasi struktur data dasar:
   - List       : daftar spesies dan populasi satwa
@@ -7,6 +8,8 @@ Implementasi struktur data dasar:
   - Dictionary : database satwa berindeks Chip ID
 """
 
+# Class Satwa dibuat di structures/satwa.py karena backend/models.py
+# milik Anggota 1 hanya berisi User, Ranger, dan Habitat.
 from struktur.satwa import Satwa
 
 
@@ -31,7 +34,6 @@ class ManajemenPopulasi:
                 print(f"  [!] Chip ID '{satwa.chip_id}' sudah terdaftar.")
                 return False
         self._data.append(satwa)
-        print(f"  [✓] {satwa.nama} ({satwa.chip_id}) berhasil ditambahkan.")
         return True
 
     def hapus_satwa(self, chip_id: str) -> bool:
@@ -62,7 +64,7 @@ class ManajemenPopulasi:
         return [s for s in self._data if s.zona.lower() == zona.lower()]
 
     def filter_status(self, status: str) -> list:
-        """Kembalikan list satwa berdasarkan status kepunahan (CR/EN/VU/NT/LC)."""
+        """Kembalikan list satwa berdasarkan status kepunahan."""
         return [s for s in self._data if s.status_kepunahan.upper() == status.upper()]
 
     def get_semua(self) -> list:
@@ -204,8 +206,7 @@ class SpesiesUnik:
             print(f"  {i:>3}. {sp}")
         print(f"  {'─'*40}")
 
-
-# ════════════════════════════════════════
+# ═══════════════════════════════
 #  4. DICTIONARY — Database satwa by Chip ID
 # ════════════════════════════════════════
 
