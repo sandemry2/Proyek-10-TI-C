@@ -6,6 +6,9 @@
 # ─────────────────────────────────────────────────────────────
 # 1. LIST — Daftar Spesies Satwa (20 spesies)
 # ─────────────────────────────────────────────────────────────
+from struktur.queue_medis import QueueMedis
+from struktur.stack_undo import StackUndo
+
 daftar_spesies = [
     "Harimau Sumatera",     # 1
     "Orangutan Borneo",     # 2
@@ -137,39 +140,13 @@ data_satwa = {
 # 5. STACK — Riwayat Undo Input Data Pengamatan (10 aksi)
 #    push = append()  |  pop = pop()
 # ─────────────────────────────────────────────────────────────
-stack_undo = [
-    {"aksi": "TAMBAH", "chip_id": "SWA-001", "field": "berat_kg", "nilai_lama": 115,      "nilai_baru": 120},
-    {"aksi": "EDIT",   "chip_id": "SWA-006", "field": "zona",     "nilai_lama": "Zona A", "nilai_baru": "Zona B"},
-    {"aksi": "TAMBAH", "chip_id": "SWA-016", "field": "usia",     "nilai_lama": 6,        "nilai_baru": 7},
-    {"aksi": "HAPUS",  "chip_id": "SWA-028", "field": "catatan",  "nilai_lama": "Sehat",  "nilai_baru": None},
-    {"aksi": "EDIT",   "chip_id": "SWA-036", "field": "berat_kg", "nilai_lama": 2.9,      "nilai_baru": 3.0},
-    {"aksi": "TAMBAH", "chip_id": "SWA-045", "field": "zona",     "nilai_lama": "Zona C", "nilai_baru": "Zona B"},
-    {"aksi": "EDIT",   "chip_id": "SWA-049", "field": "berat_kg", "nilai_lama": 195,      "nilai_baru": 200},
-    {"aksi": "HAPUS",  "chip_id": "SWA-020", "field": "catatan",  "nilai_lama": "Luka",   "nilai_baru": None},
-    {"aksi": "TAMBAH", "chip_id": "SWA-037", "field": "usia",     "nilai_lama": 5,        "nilai_baru": 6},
-    {"aksi": "EDIT",   "chip_id": "SWA-032", "field": "status",   "nilai_lama": "Sakit",  "nilai_baru": "Sehat"},
-]
+stack_undo = StackUndo()
 
 # ─────────────────────────────────────────────────────────────
 # 6. QUEUE — Antrean Pemeriksaan Medis (15 satwa, FIFO)
 # ─────────────────────────────────────────────────────────────
-queue_medis = [
-    {"no": 1,  "chip_id": "SWA-016", "nama": "Wira",    "keluhan": "Luka pada kaki kiri",      "prioritas": "Darurat", "waktu": "07:05"},
-    {"no": 2,  "chip_id": "SWA-033", "nama": "Sisik",   "keluhan": "Kehilangan nafsu makan",   "prioritas": "Darurat", "waktu": "07:20"},
-    {"no": 3,  "chip_id": "SWA-001", "nama": "Rimba",   "keluhan": "Demam tinggi",             "prioritas": "Tinggi",  "waktu": "07:45"},
-    {"no": 4,  "chip_id": "SWA-050", "nama": "Kura",    "keluhan": "Cangkang retak",           "prioritas": "Darurat", "waktu": "08:00"},
-    {"no": 5,  "chip_id": "SWA-012", "nama": "Permata", "keluhan": "Gigi terinfeksi",          "prioritas": "Tinggi",  "waktu": "08:15"},
-    {"no": 6,  "chip_id": "SWA-025", "nama": "Dara",    "keluhan": "Cek rutin bulanan",        "prioritas": "Normal",  "waktu": "08:30"},
-    {"no": 7,  "chip_id": "SWA-047", "nama": "Duri",    "keluhan": "Duri patah",               "prioritas": "Normal",  "waktu": "08:45"},
-    {"no": 8,  "chip_id": "SWA-007", "nama": "Sari",    "keluhan": "Cek kehamilan",            "prioritas": "Normal",  "waktu": "09:00"},
-    {"no": 9,  "chip_id": "SWA-041", "nama": "Lincah",  "keluhan": "Diare ringan",             "prioritas": "Normal",  "waktu": "09:15"},
-    {"no": 10, "chip_id": "SWA-048", "nama": "Luwak",   "keluhan": "Vaksinasi tahunan",        "prioritas": "Normal",  "waktu": "09:30"},
-    {"no": 11, "chip_id": "SWA-031", "nama": "Bintang", "keluhan": "Infeksi mata",             "prioritas": "Tinggi",  "waktu": "09:45"},
-    {"no": 12, "chip_id": "SWA-020", "nama": "Nara",    "keluhan": "Cek berat badan",          "prioritas": "Normal",  "waktu": "10:00"},
-    {"no": 13, "chip_id": "SWA-034", "nama": "Kanci",   "keluhan": "Stres pasca translokasi",  "prioritas": "Tinggi",  "waktu": "10:15"},
-    {"no": 14, "chip_id": "SWA-043", "nama": "Bekan",   "keluhan": "Cek rutin bulanan",        "prioritas": "Normal",  "waktu": "10:30"},
-    {"no": 15, "chip_id": "SWA-022", "nama": "Jago",    "keluhan": "Luka cakaran",             "prioritas": "Tinggi",  "waktu": "10:45"},
-]
+
+queue_medis = QueueMedis()
 
 # ─────────────────────────────────────────────────────────────
 # 7. SINGLE LINKED LIST — Log Penampakan Satwa (20 node)
@@ -557,3 +534,73 @@ if __name__ == "__main__":
     print(f"\n{SEP}")
     print(" Selesai. 50 satwa (SWA-001 s/d SWA-050) + semua struktur data.")
     print(SEP)
+
+
+#=========================================
+"""
+═════════════════════════════════════════
+Fungsi untuk mengisi data awal Queue, Stack, SLL, DLL, CLL
+agar program langsung bisa didemonstrasikan.
+
+"""
+
+from struktur.queue_medis import QueueMedis
+from struktur.stack_undo  import StackUndo
+from struktur.sll_log     import SLLLog
+from struktur.dll_galeri  import DLLGaleri
+from struktur.cll_patroli import CLLPatroli
+
+
+def isi_queue(queue: QueueMedis, daftar_satwa: list):
+    """Isi antrean medis dengan data awal."""
+    data = [
+        ("A005", "Normal",  "Badak1",    "Elephas maximus",          "Zona C", "Kulit gatal"),
+        ("A003", "Darurat", "Gajah1",    "Dicerorhinus sumatrensis",  "Zona B", "Kaki bengkak"),
+        ("A007", "Normal",  "Orangtan2", "Pongo pygmaeus",            "Zona D", "Nafsu makan turun"),
+        ("A001", "Normal",  "Raja",      "Panthera tigris",           "Zona A", "Pemeriksaan rutin"),
+    ]
+    for chip_id, prioritas, nama, spesies, zona, keluhan in data:
+        queue.enqueue(chip_id, nama, spesies, zona, keluhan, prioritas)
+
+
+def isi_sll(sll: SLLLog, daftar_satwa: list):
+    """Isi log penampakan dengan data awal."""
+    catatan = [
+        ("A001", "Raja",      "Panthera tigris",  "Zona A", "Dekat sungai utara",  "Berburu",     "Budi Santoso"),
+        ("A008", "Rusa1",     "Cervus unicolor",  "Zona A", "Padang rumput timur", "Merumput",    "Budi Santoso"),
+        ("A006", "Orangtan1", "Pongo pygmaeus",   "Zona D", "Pohon ara besar",     "Makan buah",  "Rina Wijaya"),
+        ("A003", "Gajah1",    "Elephas maximus",  "Zona B", "Sumber air",          "Minum",       "Agus Pratama"),
+        ("A010", "Tapir1",    "Tapirus indicus",  "Zona C", "Semak rimbun",        "Bersembunyi", "Budi Santoso"),
+        ("A001", "Raja",      "Panthera tigris",  "Zona A", "Batas zona A-B",      "Menjelajah",  "Rina Wijaya"),
+    ]
+    for chip_id, nama, spesies, zona, lokasi, aktivitas, petugas in catatan:
+        sll.tambah_log(chip_id, nama, spesies, zona, lokasi, aktivitas, petugas)
+
+
+def isi_dll(dll: DLLGaleri, daftar_satwa: list):
+    """Isi galeri foto dengan data awal."""
+    foto = [
+        ("A001", "Raja",      "Panthera tigris",           "raja_berburu_01.jpg",   "Raja sedang berburu rusa di tepi sungai",        "2025-01-10", "Zona A"),
+        ("A003", "Gajah1",    "Elephas maximus",            "gajah1_minum_01.jpg",   "Gajah1 minum di sumber air bersama kawanan",     "2025-01-11", "Zona B"),
+        ("A006", "Orangtan1", "Pongo pygmaeus",             "orangtan1_makan_01.jpg","Orangtan1 memakan buah ara di puncak pohon",     "2025-01-12", "Zona D"),
+        ("A005", "Badak1",    "Dicerorhinus sumatrensis",   "badak1_istirahat.jpg",  "Badak1 beristirahat di bawah pohon rindang",     "2025-01-13", "Zona C"),
+        ("A008", "Rusa1",     "Cervus unicolor",            "rusa1_merumput.jpg",    "Rusa1 merumput di padang terbuka",               "2025-01-14", "Zona A"),
+        ("A010", "Tapir1",    "Tapirus indicus",            "tapir1_sembunyi.jpg",   "Tapir1 bersembunyi di antara semak tebal",       "2025-01-15", "Zona C"),
+        ("A001", "Raja",      "Panthera tigris",            "raja_istirahat_01.jpg", "Raja beristirahat setelah berburu",              "2025-01-16", "Zona A"),
+    ]
+    for chip_id, nama, spesies, nama_file, deskripsi, tanggal, zona in foto:
+        dll.tambah_foto(chip_id, nama, spesies, nama_file, deskripsi, tanggal, zona)
+
+
+def isi_cll(cll: CLLPatroli):
+    """Isi jadwal patroli dengan data awal."""
+    jadwal = [
+        ("Zona A — Hutan Rimba Utara", "Budi Santoso",  "Pagi",  6),
+        ("Zona B — Padang Savana",     "Agus Pratama",  "Pagi",  6),
+        ("Zona C — Lembah Kabut",      "Rina Wijaya",   "Siang", 6),
+        ("Zona D — Hutan Gambut",      "Budi Santoso",  "Siang", 6),
+        ("Zona E — Sungai Besar",      "Agus Pratama",  "Malam", 8),
+    ]
+    for zona, ranger, shift, durasi in jadwal:
+        cll.tambah_patroli(zona, ranger, shift, durasi)
+    cll.mulai_patroli_pertama()
