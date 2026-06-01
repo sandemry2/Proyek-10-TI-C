@@ -1,6 +1,4 @@
 """
-structures/queue_medis.py — Anggota 3
-══════════════════════════════════════
 Antrean pemeriksaan medis satwa menggunakan Queue.
 Implementasi: Linked List (bukan list Python biasa)
 
@@ -49,6 +47,9 @@ class QueueMedis:
         self.head = None
         self.tail = None
         self.ukuran = 0
+        
+         # Rekam medis
+        self.rekam_medis = []
 
     # ── Enqueue normal (masuk dari belakang) ─────────────────────────
     def enqueue(self, chip_id: str, nama: str, spesies: str,
@@ -133,6 +134,45 @@ class QueueMedis:
         print(f"  {'─'*55}")
         print(f"  Total antrean: {self.ukuran} satwa")
 
+    # ── Simpan Rekam Medis ─────────────────────────────────────────────
+    def simpan_rekam_medis(self, data_satwa, diagnosis, tindakan):
+        rekam = {
+            "chip_id": data_satwa["chip_id"],
+            "nama": data_satwa["nama"],
+            "spesies": data_satwa["spesies"],
+            "keluhan": data_satwa["keluhan"],
+            "diagnosis": diagnosis,
+            "tindakan": tindakan,
+            "tanggal": datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+        }
+
+        self.rekam_medis.append(rekam)
+
+        print(f"  [✓] Rekam medis {data_satwa['nama']} berhasil disimpan.")
+
+
+    # ── Tampilkan rekam medis ─────────────────────────────────────────────
+
+    def tampilkan_rekam_medis(self):
+        print("\n  📋 REKAM MEDIS SATWA")
+        print(f"  {'─'*80}")
+
+        if not self.rekam_medis:
+            print("  (Belum ada rekam medis)")
+            return
+
+        for i, r in enumerate(self.rekam_medis, 1):
+            print(f"\n  Rekam #{i}")
+            print(f"  Chip ID   : {r['chip_id']}")
+            print(f"  Nama      : {r['nama']}")
+            print(f"  Spesies   : {r['spesies']}")
+            print(f"  Keluhan   : {r['keluhan']}")
+            print(f"  Diagnosis : {r['diagnosis']}")
+            print(f"  Tindakan  : {r['tindakan']}")
+            print(f"  Tanggal   : {r['tanggal']}")
+
+        print(f"\n  Total rekam medis: {len(self.rekam_medis)}")
+
 
 # ════════════════════════════════════════
 #  MENU
@@ -145,6 +185,7 @@ def menu_antrean(queue: QueueMedis, daftar_satwa: list):
         print(f"  ║  2. Panggil satwa berikutnya (Dequeue)")
         print(f"  ║  3. Lihat antrean saat ini")
         print(f"  ║  4. Lihat satwa paling depan (Peek)")
+        print(f"  ║  5. Lihat rekam medis")
         print(f"  ║  0. Kembali")
         print(f"  ╚{'═'*40}")
         pilihan = input("  Pilih: ").strip()
@@ -164,9 +205,18 @@ def menu_antrean(queue: QueueMedis, daftar_satwa: list):
 
         elif pilihan == "2":
             hasil = queue.dequeue()
+
             if hasil:
-                print(f"  Silakan lakukan pemeriksaan untuk {hasil['nama']}.")
-            input("\n  Tekan Enter untuk lanjut...")
+                print(f"\n  Pemeriksaan untuk {hasil['nama']}")
+
+                diagnosis = input("  Diagnosis : ")
+                tindakan = input("  Tindakan  : ")
+
+                queue.simpan_rekam_medis(
+                    hasil,
+                    diagnosis,
+                    tindakan
+                )
 
         elif pilihan == "3":
             queue.tampilkan()
@@ -178,7 +228,13 @@ def menu_antrean(queue: QueueMedis, daftar_satwa: list):
                 print(f"\n  Satwa berikutnya: {depan['nama']} ({depan['chip_id']}) — {depan['keluhan']}")
             input("\n  Tekan Enter untuk lanjut...")
 
+        elif pilihan == "5":
+            queue.tampilkan_rekam_medis()
+            input("\n  Tekan Enter untuk lanjut...")
+
         elif pilihan == "0":
             break
         else:
             print("  [!] Pilihan tidak valid.")
+
+        

@@ -1,5 +1,5 @@
 from tabulate import tabulate
-from data_dummy_ekosistem import data_satwa, animals_obj
+from data_dummy_ekosistem import data_satwa, taksonomi_tree, peta_migrasi
 
 from struktur.searching import menu_pencarian
 
@@ -40,6 +40,8 @@ from struktur.stack_undo import menu_undo
 from struktur.sll_log import menu_log
 from struktur.dll_galeri import menu_galeri
 from struktur.cll_patroli import menu_patroli
+from struktur.tree_taksonomi import TreeTaksonomi, menu_taksonomi
+from struktur.graph_migrasi  import GraphMigrasi,  menu_graph
 
 
 # ==============================
@@ -101,6 +103,8 @@ def menu_utama():
         print(" 11.  Log Aktivitas Satwa (SLL)")
         print(" 12.  Galeri Foto Satwa (DLL)")
         print(" 13.  Rotasi Patroli (CLL)")
+        print(" 14.  Taksonomi Biologis (Tree)")
+        print(" 15.  Peta Habitat & Migrasi (Graph)")
         print("  0.  Keluar")
 
         print("=" * 55)
@@ -238,6 +242,22 @@ def menu_utama():
         elif pilih == "13":
 
             menu_patroli(jadwal_patroli)
+
+        # ==============================
+        # MENU 14 - TREE
+        # ==============================
+
+        elif pilih == "14":
+
+            menu_taksonomi(_tree)
+
+        # ==============================
+        # MENU 15 - GRAPH
+        # ==============================
+
+        elif pilih == "15":
+
+            menu_graph(_graph)
 
         # ==============================
         # MENU 0
@@ -421,3 +441,17 @@ def _tampilkan_status_habitat():
         )
 
     print(f"  {'─'*70}")
+
+# ==============================
+# TREE TAKSONOMI
+# ==============================
+
+_tree = TreeTaksonomi()
+_tree.bangun_dari_dict(taksonomi_tree)
+
+# ==============================
+# GRAPH MIGRASI
+# ==============================
+
+_graph = GraphMigrasi()
+_graph.bangun_dari_dict(peta_migrasi)
