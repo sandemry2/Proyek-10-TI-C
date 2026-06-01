@@ -523,13 +523,31 @@ if __name__ == "__main__":
 
     print(f"\n{'-'*62}")
     print(" [QUEUE] Antrean Medis (3 terdepan):")
-    for q in queue_medis[:3]:
-        print(f"  [{q['no']}] {q['nama']:8s} | {q['prioritas']:8s} | {q['keluhan']}")
+
+    current = queue_medis.head
+    count = 0
+
+    while current and count < 3:
+        data = current.data
+        print(
+            f"  [{data['chip_id']}] "
+            f"{data['nama']:8s} | "
+            f"{data['prioritas']:8s} | "
+            f"{data['keluhan']}"
+    )
+
+    current = current.next
+    count += 1
 
     print(f"\n{'-'*62}")
     print(" [STACK] 3 Aksi Undo Terakhir:")
-    for u in stack_undo[-3:]:
-        print(f"  {u['aksi']:6s} | {u['chip_id']} | {u['field']} : {u['nilai_lama']} -> {u['nilai_baru']}")
+    for u in stack_undo.stack[-3:]:
+        print(
+            f"  {u['aksi']:6s} | "
+            f"{u['chip_id']} | "
+            f"{u['field']} : "
+            f"{u['nilai_lama']} -> {u['nilai_baru']}"
+        )
 
     print(f"\n{SEP}")
     print(" Selesai. 50 satwa (SWA-001 s/d SWA-050) + semua struktur data.")
@@ -549,18 +567,6 @@ from struktur.stack_undo  import StackUndo
 from struktur.sll_log     import SLLLog
 from struktur.dll_galeri  import DLLGaleri
 from struktur.cll_patroli import CLLPatroli
-
-
-def isi_queue(queue: QueueMedis, daftar_satwa: list):
-    """Isi antrean medis dengan data awal."""
-    data = [
-        ("A005", "Normal",  "Badak1",    "Elephas maximus",          "Zona C", "Kulit gatal"),
-        ("A003", "Darurat", "Gajah1",    "Dicerorhinus sumatrensis",  "Zona B", "Kaki bengkak"),
-        ("A007", "Normal",  "Orangtan2", "Pongo pygmaeus",            "Zona D", "Nafsu makan turun"),
-        ("A001", "Normal",  "Raja",      "Panthera tigris",           "Zona A", "Pemeriksaan rutin"),
-    ]
-    for chip_id, prioritas, nama, spesies, zona, keluhan in data:
-        queue.enqueue(chip_id, nama, spesies, zona, keluhan, prioritas)
 
 
 def isi_sll(sll: SLLLog, daftar_satwa: list):

@@ -8,6 +8,7 @@ Konsep Queue: FIFO — First In, First Out
 """
 from tabulate import tabulate
 from datetime import datetime
+from backend.file_handler import load_antrean, save_antrean
 
 
 # ════════════════════════════════════════
@@ -47,41 +48,88 @@ class QueueMedis:
         self.head = None
         self.tail = None
         self.ukuran = 0
-        
-         # Rekam medis
+
+        # Rekam medis
         self.rekam_medis = []
 
+        # Ambil data antrean dari file
+        self.data_file = load_antrean()
+
+        # Masukkan ke linked list
+        for item in self.data_file:
+            self.enqueue(
+                item["chip_id"],
+                item["nama"],
+                item["spesies"],
+                item["zona"],
+                item["keluhan"],
+                item["prioritas"],
+                item["waktu"],
+                simpan=False
+            )
+
+    # ── Antrean medis ─────────────────────────
+    def __len__(self):
+        return self.ukuran
+            
     # ── Enqueue normal (masuk dari belakang) ─────────────────────────
     def enqueue(self, chip_id: str, nama: str, spesies: str,
-                zona: str, keluhan: str, prioritas: str = "Normal"):
+            zona: str, keluhan: str,
+            prioritas: str = "Normal",
+            waktu=None,
+            simpan=True):
+
         data = {
-            "chip_id"  : chip_id,
-            "nama"     : nama,
-            "spesies"  : spesies,
-            "zona"     : zona,
-            "keluhan"  : keluhan,
+            "chip_id": chip_id,
+            "nama": nama,
+            "spesies": spesies,
+            "zona": zona,
+            "keluhan": keluhan,
             "prioritas": prioritas,
-            "waktu"    : datetime.now().strftime("%H:%M:%S")
+            "waktu": waktu or datetime.now().strftime("%H:%M:%S")
         }
+
         node = NodeAntrean(data)
 
         if prioritas == "Darurat":
-            # Sisipkan di depan
+            # Masuk ke depan antrean
             node.next = self.head
             self.head = node
+
             if self.tail is None:
                 self.tail = node
+
             print(f"  [🚨] {nama} masuk antrean DARURAT (posisi 1).")
+
         else:
-            # Masuk dari belakang
+            # Masuk ke belakang antrean
             if self.tail:
                 self.tail.next = node
+
             self.tail = node
+
             if self.head is None:
                 self.head = node
+
             print(f"  [✓] {nama} masuk antrean (posisi {self.ukuran + 1}).")
 
         self.ukuran += 1
+
+        # simpan ke file hanya jika antrean baru ditambah user
+        if simpan:
+            self.simpan_file()
+
+    def simpan_file(self):
+
+        data = []
+
+        node = self.head
+
+        while node:
+            data.append(node.data)
+            node = node.next
+
+        save_antrean(data)
 
     # ── Dequeue (keluar dari depan) ──────────────────────────────────
     def dequeue(self) -> dict:
@@ -97,8 +145,11 @@ class QueueMedis:
         self.ukuran -= 1
 
         print(f"\n  [🏥] Memanggil: {data['nama']} ({data['chip_id']}) — {data['keluhan']}")
-        return data
 
+        self.simpan_file()
+
+        return data
+    
     # ── Peek (lihat depan tanpa dikeluarkan) ────────────────────────
     def peek(self) -> dict:
         if self.kosong():
