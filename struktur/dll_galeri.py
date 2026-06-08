@@ -1,5 +1,4 @@
 """
-structures/dll_galeri.py — Anggota 3
 ═════════════════════════════════════
 Galeri foto satwa menggunakan Double Linked List (DLL).
 Setiap foto = satu node, bisa navigasi maju (next) dan mundur (prev).
@@ -52,7 +51,7 @@ class DLLGaleri:
 
     # ── Tambah foto (di belakang) ─────────────────────────────────────
     def tambah_foto(self, chip_id: str, nama: str, spesies: str,
-                    nama_file: str, deskripsi: str, tanggal: str, zona: str):
+                    nama_file: str, deskripsi: str, tanggal: str, zona: str, tampilkan_pesan=True):
         data = {
             "id_foto"   : self._id_counter,
             "chip_id"   : chip_id,
@@ -68,6 +67,7 @@ class DLLGaleri:
         if self.tail is None:
             self.head = self.tail = node
             self.kursor = node
+        
         else:
             node.prev = self.tail
             self.tail.next = node
@@ -75,8 +75,10 @@ class DLLGaleri:
 
         self.jumlah += 1
         self._id_counter += 1
-        print(f"  [✓] Foto '{nama_file}' ({nama}) ditambahkan ke galeri (#{data['id_foto']}).")
 
+        if tampilkan_pesan:
+            print(f"  [✓] Foto '{nama_file}' ({nama}) ditambahkan ke galeri (#{data['id_foto']}).")
+        
     # ── Hapus foto berdasarkan ID ──────────────────────────────────────
     def hapus_foto(self, id_foto: int) -> bool:
         node = self.head
@@ -182,6 +184,20 @@ class DLLGaleri:
                 node = node.next
         print(f"  {'─'*60}")
         print(f"  Total: {self.jumlah} foto")
+
+    # ── Load data dummy ─────────────────────────────────
+    def load_data(self, data_galeri):
+        for foto in data_galeri:
+            self.tambah_foto(
+                foto["chip_id"],
+                foto["nama"],
+                foto["spesies"],
+                foto["nama_file"],
+                foto["deskripsi"],
+                foto["tanggal"],
+                foto["zona"],
+                tampilkan_pesan=False
+                )
 
 
 # ════════════════════════════════════════

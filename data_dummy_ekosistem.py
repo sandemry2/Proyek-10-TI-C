@@ -8,6 +8,10 @@
 # ─────────────────────────────────────────────────────────────
 from struktur.queue_medis import QueueMedis
 from struktur.stack_undo import StackUndo
+from struktur.sll_log import SLLLog
+from struktur.dll_galeri import DLLGaleri
+from struktur.cll_patroli import CLLPatroli, menu_patroli
+
 
 daftar_spesies = [
     "Harimau Sumatera",     # 1
@@ -151,61 +155,121 @@ queue_medis = QueueMedis()
 # ─────────────────────────────────────────────────────────────
 # 7. SINGLE LINKED LIST — Log Penampakan Satwa (20 node)
 # ─────────────────────────────────────────────────────────────
-log_penampakan = [
-    {"id": 1,  "tanggal": "2025-01-03", "waktu": "06:12", "chip_id": "SWA-001", "nama": "Rimba",   "zona": "Zona A", "aktivitas": "Berburu",           "next": 2},
-    {"id": 2,  "tanggal": "2025-01-05", "waktu": "08:34", "chip_id": "SWA-006", "nama": "Borno",   "zona": "Zona B", "aktivitas": "Makan buah",        "next": 3},
-    {"id": 3,  "tanggal": "2025-01-07", "waktu": "14:20", "chip_id": "SWA-011", "nama": "Agung",   "zona": "Zona D", "aktivitas": "Minum di sungai",   "next": 4},
-    {"id": 4,  "tanggal": "2025-01-09", "waktu": "07:00", "chip_id": "SWA-022", "nama": "Jago",    "zona": "Zona E", "aktivitas": "Mengintai mangsa",  "next": 5},
-    {"id": 5,  "tanggal": "2025-01-10", "waktu": "17:45", "chip_id": "SWA-036", "nama": "Garuda",  "zona": "Zona E", "aktivitas": "Terbang melayang",  "next": 6},
-    {"id": 6,  "tanggal": "2025-01-12", "waktu": "09:15", "chip_id": "SWA-019", "nama": "Madu",    "zona": "Zona A", "aktivitas": "Mencari madu",      "next": 7},
-    {"id": 7,  "tanggal": "2025-01-13", "waktu": "06:50", "chip_id": "SWA-028", "nama": "Tapa",    "zona": "Zona A", "aktivitas": "Berendam",          "next": 8},
-    {"id": 8,  "tanggal": "2025-01-15", "waktu": "11:30", "chip_id": "SWA-049", "nama": "Croco",   "zona": "Zona C", "aktivitas": "Berjemur",          "next": 9},
-    {"id": 9,  "tanggal": "2025-01-16", "waktu": "16:00", "chip_id": "SWA-045", "nama": "Siama",   "zona": "Zona B", "aktivitas": "Bergelantungan",    "next": 10},
-    {"id": 10, "tanggal": "2025-01-18", "waktu": "07:20", "chip_id": "SWA-002", "nama": "Luna",    "zona": "Zona F", "aktivitas": "Mengasuh anak",     "next": 11},
-    {"id": 11, "tanggal": "2025-01-19", "waktu": "13:10", "chip_id": "SWA-043", "nama": "Bekan",   "zona": "Zona C", "aktivitas": "Makan daun",        "next": 12},
-    {"id": 12, "tanggal": "2025-01-20", "waktu": "08:05", "chip_id": "SWA-026", "nama": "Riko",    "zona": "Zona E", "aktivitas": "Berlari",           "next": 13},
-    {"id": 13, "tanggal": "2025-01-22", "waktu": "15:40", "chip_id": "SWA-039", "nama": "Rangka",  "zona": "Zona B", "aktivitas": "Membuat sarang",    "next": 14},
-    {"id": 14, "tanggal": "2025-01-23", "waktu": "10:00", "chip_id": "SWA-050", "nama": "Kura",    "zona": "Zona H", "aktivitas": "Berjemur",          "next": 15},
-    {"id": 15, "tanggal": "2025-01-25", "waktu": "06:30", "chip_id": "SWA-003", "nama": "Tegar",   "zona": "Zona J", "aktivitas": "Menandai teritori", "next": 16},
-    {"id": 16, "tanggal": "2025-01-26", "waktu": "09:45", "chip_id": "SWA-032", "nama": "Koko",    "zona": "Zona I", "aktivitas": "Bermain",           "next": 17},
-    {"id": 17, "tanggal": "2025-01-27", "waktu": "12:15", "chip_id": "SWA-014", "nama": "Anggun",  "zona": "Zona D", "aktivitas": "Mandi lumpur",      "next": 18},
-    {"id": 18, "tanggal": "2025-01-28", "waktu": "07:55", "chip_id": "SWA-033", "nama": "Sisik",   "zona": "Zona C", "aktivitas": "Menggali tanah",    "next": 19},
-    {"id": 19, "tanggal": "2025-01-29", "waktu": "16:30", "chip_id": "SWA-037", "nama": "Elok",    "zona": "Zona G", "aktivitas": "Berburu ikan",      "next": 20},
-    {"id": 20, "tanggal": "2025-01-30", "waktu": "08:00", "chip_id": "SWA-009", "nama": "Nisa",    "zona": "Zona I", "aktivitas": "Menyusui anak",     "next": None},
-]
+log_penampakan = SLLLog()
 
 # ─────────────────────────────────────────────────────────────
 # 8. DOUBLE LINKED LIST — Galeri Foto Satwa (10 node)
 # ─────────────────────────────────────────────────────────────
-galeri_foto = [
-    {"id": 1,  "chip_id": "SWA-001", "file": "rimba_berburu_0103.jpg",   "deskripsi": "Rimba mengintai mangsa di semak",      "fotografer": "Ranger Budi",  "prev": None, "next": 2},
-    {"id": 2,  "chip_id": "SWA-006", "file": "borno_makan_0105.jpg",     "deskripsi": "Borno makan buah ara di pohon",        "fotografer": "Ranger Andi",  "prev": 1,    "next": 3},
-    {"id": 3,  "chip_id": "SWA-011", "file": "agung_sungai_0107.jpg",    "deskripsi": "Agung menyeberang sungai besar",       "fotografer": "Ranger Citra", "prev": 2,    "next": 4},
-    {"id": 4,  "chip_id": "SWA-036", "file": "garuda_terbang_0110.jpg",  "deskripsi": "Garuda melayang di atas kanopi hutan", "fotografer": "Ranger Dewi",  "prev": 3,    "next": 5},
-    {"id": 5,  "chip_id": "SWA-022", "file": "jago_pohon_0112.jpg",      "deskripsi": "Jago beristirahat di cabang pohon",    "fotografer": "Ranger Eko",   "prev": 4,    "next": 6},
-    {"id": 6,  "chip_id": "SWA-049", "file": "croco_berjemur_0115.jpg",  "deskripsi": "Croco berjemur di tepi rawa gambut",   "fotografer": "Ranger Fajar", "prev": 5,    "next": 7},
-    {"id": 7,  "chip_id": "SWA-045", "file": "siama_gelantung_0116.jpg", "deskripsi": "Siama bergelantungan bersama pasangan","fotografer": "Ranger Budi",  "prev": 6,    "next": 8},
-    {"id": 8,  "chip_id": "SWA-002", "file": "luna_anak_0118.jpg",       "deskripsi": "Luna mengasuh dua anaknya di sarang",  "fotografer": "Ranger Andi",  "prev": 7,    "next": 9},
-    {"id": 9,  "chip_id": "SWA-039", "file": "rangka_sarang_0122.jpg",   "deskripsi": "Rangka sedang membangun sarang",       "fotografer": "Ranger Citra", "prev": 8,    "next": 10},
-    {"id": 10, "chip_id": "SWA-003", "file": "tegar_teritori_0125.jpg",  "deskripsi": "Tegar menandai teritori dengan cakar", "fotografer": "Ranger Dewi",  "prev": 9,    "next": None},
+
+data_galeri = [
+    {
+        "chip_id": "SWA-001",
+        "nama": "Rimba",
+        "spesies": "Harimau Sumatera",
+        "nama_file": "rimba_berburu_0103.jpg",
+        "deskripsi": "Rimba mengintai mangsa di semak",
+        "tanggal": "2025-01-03",
+        "zona": "Zona A"
+    },
+    {
+        "chip_id": "SWA-006",
+        "nama": "Borno",
+        "spesies": "Orangutan Kalimantan",
+        "nama_file": "borno_makan_0105.jpg",
+        "deskripsi": "Borno makan buah ara di pohon",
+        "tanggal": "2025-01-05",
+        "zona": "Zona B"
+    },
+    {
+        "chip_id": "SWA-011",
+        "nama": "Agung",
+        "spesies": "Gajah Sumatera",
+        "nama_file": "agung_sungai_0107.jpg",
+        "deskripsi": "Agung menyeberang sungai besar",
+        "tanggal": "2025-01-07",
+        "zona": "Zona D"
+    },
+    {
+        "chip_id": "SWA-036",
+        "nama": "Garuda",
+        "spesies": "Elang Jawa",
+        "nama_file": "garuda_terbang_0110.jpg",
+        "deskripsi": "Garuda melayang di atas kanopi hutan",
+        "tanggal": "2025-01-10",
+        "zona": "Zona E"
+    },
+    {
+        "chip_id": "SWA-022",
+        "nama": "Jago",
+        "spesies": "Macan Tutul Jawa",
+        "nama_file": "jago_pohon_0112.jpg",
+        "deskripsi": "Jago beristirahat di cabang pohon",
+        "tanggal": "2025-01-12",
+        "zona": "Zona E"
+    },
+    {
+        "chip_id": "SWA-049",
+        "nama": "Croco",
+        "spesies": "Buaya Muara",
+        "nama_file": "croco_berjemur_0115.jpg",
+        "deskripsi": "Croco berjemur di tepi rawa gambut",
+        "tanggal": "2025-01-15",
+        "zona": "Zona C"
+    },
+    {
+        "chip_id": "SWA-045",
+        "nama": "Siama",
+        "spesies": "Siamang",
+        "nama_file": "siama_gelantung_0116.jpg",
+        "deskripsi": "Siama bergelantungan bersama pasangan",
+        "tanggal": "2025-01-16",
+        "zona": "Zona B"
+    },
+    {
+        "chip_id": "SWA-002",
+        "nama": "Luna",
+        "spesies": "Harimau Sumatera",
+        "nama_file": "luna_anak_0118.jpg",
+        "deskripsi": "Luna mengasuh dua anaknya di sarang",
+        "tanggal": "2025-01-18",
+        "zona": "Zona F"
+    },
+    {
+        "chip_id": "SWA-039",
+        "nama": "Rangka",
+        "spesies": "Rangkong Gading",
+        "nama_file": "rangka_sarang_0122.jpg",
+        "deskripsi": "Rangka sedang membangun sarang",
+        "tanggal": "2025-01-22",
+        "zona": "Zona B"
+    },
+    {
+        "chip_id": "SWA-003",
+        "nama": "Tegar",
+        "spesies": "Harimau Sumatera",
+        "nama_file": "tegar_teritori_0125.jpg",
+        "deskripsi": "Tegar menandai teritori dengan cakar",
+        "tanggal": "2025-01-25",
+        "zona": "Zona J"
+    }
 ]
+
+galeri_foto = DLLGaleri()
+galeri_foto.load_data(data_galeri)
 
 # ─────────────────────────────────────────────────────────────
 # 9. CIRCULAR LINKED LIST — Rotasi Patroli Keamanan
 # ─────────────────────────────────────────────────────────────
-jadwal_patroli = [
-    {"id_ranger": "RNG-01", "nama": "Budi Santoso",   "zona": "Zona A", "zona_next": "Zona B", "shift": "Pagi  (06:00-12:00)"},
-    {"id_ranger": "RNG-02", "nama": "Andi Pratama",   "zona": "Zona B", "zona_next": "Zona C", "shift": "Pagi  (06:00-12:00)"},
-    {"id_ranger": "RNG-03", "nama": "Citra Lestari",  "zona": "Zona C", "zona_next": "Zona D", "shift": "Siang (12:00-18:00)"},
-    {"id_ranger": "RNG-04", "nama": "Dewi Anggraini", "zona": "Zona D", "zona_next": "Zona E", "shift": "Siang (12:00-18:00)"},
-    {"id_ranger": "RNG-05", "nama": "Eko Prasetyo",   "zona": "Zona E", "zona_next": "Zona A", "shift": "Malam (18:00-00:00)"},
-    # Rotasi ke-2
-    {"id_ranger": "RNG-01", "nama": "Budi Santoso",   "zona": "Zona B", "zona_next": "Zona C", "shift": "Pagi  (06:00-12:00)"},
-    {"id_ranger": "RNG-02", "nama": "Andi Pratama",   "zona": "Zona C", "zona_next": "Zona D", "shift": "Pagi  (06:00-12:00)"},
-    {"id_ranger": "RNG-03", "nama": "Citra Lestari",  "zona": "Zona D", "zona_next": "Zona E", "shift": "Siang (12:00-18:00)"},
-    {"id_ranger": "RNG-04", "nama": "Dewi Anggraini", "zona": "Zona E", "zona_next": "Zona A", "shift": "Siang (12:00-18:00)"},
-    {"id_ranger": "RNG-05", "nama": "Eko Prasetyo",   "zona": "Zona A", "zona_next": "Zona B", "shift": "Malam (18:00-00:00)"},
-]
+def patroli_cll():
+    cll = CLLPatroli()
+
+    cll.tambah_patroli("Zona A", "Nur Cahyani", "Pagi", 2)
+    cll.tambah_patroli("Zona B", "Nurul Atiqa", "Pagi", 2)
+    cll.tambah_patroli("Zona C", "Hadi Fauzan", "Siang", 3)
+    cll.tambah_patroli("Zona D", "Sande Marya", "Siang", 3)
+
+    return cll
+
 
 # ─────────────────────────────────────────────────────────────
 # 10. TREE — Taksonomi Biologis Satwa
@@ -579,6 +643,7 @@ def isi_sll(sll: SLLLog, daftar_satwa: list):
         ("A010", "Tapir1",    "Tapirus indicus",  "Zona C", "Semak rimbun",        "Bersembunyi", "Budi Santoso"),
         ("A001", "Raja",      "Panthera tigris",  "Zona A", "Batas zona A-B",      "Menjelajah",  "Rina Wijaya"),
     ]
+    
     for chip_id, nama, spesies, zona, lokasi, aktivitas, petugas in catatan:
         sll.tambah_log(chip_id, nama, spesies, zona, lokasi, aktivitas, petugas)
 

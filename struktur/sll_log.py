@@ -8,6 +8,8 @@ Struktur SLL: Head → Node1 → Node2 → ... → NodeN → None
 
 from tabulate import tabulate
 from datetime import datetime
+import json
+import os
 
 
 # ════════════════════════════════════════
@@ -26,8 +28,6 @@ class NodeLog:
             'zona'      : str,
             'lokasi'    : str   — deskripsi lokasi spesifik
             'aktivitas' : str   — apa yang dilakukan satwa
-            'petugas'   : str   — nama petugas yang mencatat
-            'waktu'     : str
           }
         """
         self.data = data
@@ -45,14 +45,17 @@ class SLLLog:
     selalu muncul pertama.
     """
 
+    FILE_LOG = "data/log.penampakan.json"
+
     def __init__(self):
         self.head = None
         self.jumlah = 0
         self._id_counter = 1
+        self.load_json()
 
     # ── Tambah log (insert di depan) ─────────────────────────────────
     def tambah_log(self, chip_id: str, nama: str, spesies: str,
-                   zona: str, lokasi: str, aktivitas: str, petugas: str):
+                   zona: str, lokasi: str, aktivitas: str):
         data = {
             "id_log"    : self._id_counter,
             "chip_id"   : chip_id,
@@ -61,7 +64,6 @@ class SLLLog:
             "zona"      : zona,
             "lokasi"    : lokasi,
             "aktivitas" : aktivitas,
-            "petugas"   : petugas,
             "waktu"     : datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }
         node = NodeLog(data)
@@ -106,16 +108,6 @@ class SLLLog:
             node = node.next
         return hasil
 
-    # ── Cari log berdasarkan zona ──────────────────────────────────────
-    def cari_by_zona(self, zona: str) -> list:
-        hasil = []
-        node = self.head
-        while node:
-            if node.data["zona"].lower() == zona.lower():
-                hasil.append(node.data)
-            node = node.next
-        return hasil
-
     # ── Tampilkan semua log ───────────────────────────────────────────
     def tampilkan(self):
         print(f"\n  📒 LOG PENAMPAKAN SATWA (Single Linked List) — {self.jumlah} entri")
@@ -135,113 +127,263 @@ class SLLLog:
             node = node.next
         print(f"  {'─'*65}")
 
-    def tampilkan_detail(self, id_log: int):
-        node = self.head
-        while node:
-            if node.data["id_log"] == id_log:
-                d = node.data
-                print(f"\n  📋 Detail Log #{id_log}")
-                print(f"  {'─'*40}")
-                for k, v in d.items():
-                    print(f"  {k:<14}: {v}")
-                print(f"  {'─'*40}")
-                return
-            node = node.next
-        print(f"  [!] Log #{id_log} tidak ditemukan.")
-
     # ── Hitung total penampakan per satwa ─────────────────────────────
     def statistik_penampakan(self):
-        frekuensi = {}
+
+        total_zona = {}
+        total_satwa = {}
+
         node = self.head
+
         while node:
+
+            zona = node.data["zona"]
             nama = node.data["nama"]
-            frekuensi[nama] = frekuensi.get(nama, 0) + 1
+
+            total_zona[zona] = total_zona.get(zona, 0) + 1
+            total_satwa[nama] = total_satwa.get(nama, 0) + 1
+
             node = node.next
 
-        print(f"\n  📊 STATISTIK PENAMPAKAN")
-        print(f"  {'─'*30}")
-        for nama, count in sorted(frekuensi.items(), key=lambda x: -x[1]):
-            bar = "▪" * count
-            print(f"  {nama:<15} {bar} ({count}x)")
-        print(f"  {'─'*30}")
+        print("\n  📊 STATISTIK PENAMPAKAN")
+        print("  " + "─"*40)
 
+        print("\n  Penampakan per Zona:")
+
+        for zona, jumlah in sorted(
+            total_zona.items(),
+            key=lambda x: x[1],
+            reverse=True
+        ):
+            print(f"  {zona:<10} : {jumlah} kali")
+
+        print("\n  Satwa Paling Sering Muncul:")
+
+        for nama, jumlah in sorted(
+            total_satwa.items(),
+            key=lambda x: x[1],
+            reverse=True
+        )[:5]:
+            print(f"  {nama:<15} : {jumlah} kali")
+
+        print("  " + "─"*40)
+
+    # ── Edit log berdasarkan ID ──────────────────────────────────
+    def edit_log(self, id_log: int, lokasi_baru=None, aktivitas_baru=None):
+
+        node = self.head
+
+        while node:
+
+            if node.data["id_log"] == id_log:
+
+                if lokasi_baru:
+                    node.data["lokasi"] = lokasi_baru
+
+                if aktivitas_baru:
+                    node.data["aktivitas"] = aktivitas_baru
+
+                print(f"  [✓] Log #{id_log} berhasil diperbarui.")
+                return True
+
+            node = node.next
+
+        print(f"  [!] Log #{id_log} tidak ditemukan.")
+        return False
+    
+    def load_json(self):
+
+        if not os.path.exists(self.FILE_LOG):
+            return
+
+        with open(self.FILE_LOG, "r", encoding="utf-8") as file:
+
+            data = json.load(file)
+
+        print(f"[DEBUG] {len(data)} log berhasil dibaca")
 
 # ════════════════════════════════════════
 #  MENU
 # ════════════════════════════════════════
 
-def menu_log(sll: SLLLog, daftar_satwa: list, ranger_aktif):
+def menu_log(sll: SLLLog, daftar_satwa: list):
+
     while True:
+
         print(f"\n  ╔══ LOG PENAMPAKAN SATWA {'═'*17}")
         print(f"  ║  1. Catat penampakan baru")
         print(f"  ║  2. Tampilkan semua log")
         print(f"  ║  3. Cari log berdasarkan Chip ID")
-        print(f"  ║  4. Cari log berdasarkan Zona")
-        print(f"  ║  5. Lihat detail log")
-        print(f"  ║  6. Hapus log")
-        print(f"  ║  7. Statistik penampakan")
+        print(f"  ║  4. Edit log")
+        print(f"  ║  5. Hapus log")
+        print(f"  ║  6. Statistik penampakan")
         print(f"  ║  0. Kembali")
         print(f"  ╚{'═'*40}")
+
         pilihan = input("  Pilih: ").strip()
 
+        # ======================================================
+        # 1. Tambah Log
+        # ======================================================
+
         if pilihan == "1":
+
             chip = input("  Chip ID satwa : ").strip()
-            satwa = next((s for s in daftar_satwa if s.chip_id == chip), None)
+
+            satwa = next(
+                (s for s in daftar_satwa if s.chip_id == chip),
+                None
+            )
+
             if not satwa:
                 print(f"  [!] Chip ID '{chip}' tidak ditemukan.")
+
             else:
-                lokasi    = input("  Lokasi spesifik : ").strip()
-                aktivitas = input("  Aktivitas satwa  : ").strip()
-                nama_petugas = ranger_aktif.nama_lengkap if ranger_aktif else "Tidak diketahui"
-                sll.tambah_log(chip, satwa.nama, satwa.spesies,
-                               satwa.zona, lokasi, aktivitas, nama_petugas)
+
+                lokasi = input(
+                    "  Lokasi spesifik : "
+                ).strip()
+
+                aktivitas = input(
+                    "  Aktivitas satwa : "
+                ).strip()
+
+
+                sll.tambah_log(
+                    chip,
+                    satwa.nama,
+                    satwa.spesies,
+                    satwa.zona,
+                    lokasi,
+                    aktivitas,
+                )
+
+        # ======================================================
+        # 2. Tampilkan Semua Log
+        # ======================================================
 
         elif pilihan == "2":
+
             sll.tampilkan()
-            input("\n  Tekan Enter untuk lanjut...")
+
+            input(
+                "\n  Tekan Enter untuk lanjut..."
+            )
+
+        # ======================================================
+        # 3. Cari Berdasarkan Chip ID
+        # ======================================================
 
         elif pilihan == "3":
-            chip = input("  Chip ID: ").strip()
+
+            chip = input(
+                "  Chip ID: "
+            ).strip()
+
             hasil = sll.cari_by_chip(chip)
+
             if hasil:
-                print(f"\n  Ditemukan {len(hasil)} log untuk Chip ID {chip}:")
+
+                print(
+                    f"\n  Ditemukan {len(hasil)} log untuk Chip ID {chip}:"
+                )
+
                 for d in hasil:
-                    print(f"  #{d['id_log']} — {d['lokasi']} | {d['aktivitas']} | {d['waktu']}")
+
+                    print(
+                        f"  #{d['id_log']} | "
+                        f"{d['nama']} | "
+                        f"{d['aktivitas']} | "
+                        f"{d['lokasi']} | "
+                        f"{d['waktu']}"
+                    )
+
             else:
-                print(f"  [!] Tidak ada log untuk Chip ID {chip}.")
-            input("\n  Tekan Enter untuk lanjut...")
+
+                print(
+                    f"  [!] Tidak ada log untuk Chip ID {chip}."
+                )
+
+            input(
+                "\n  Tekan Enter untuk lanjut..."
+            )
+
+        # ======================================================
+        # 4. Edit Log
+        # ======================================================
 
         elif pilihan == "4":
-            zona = input("  Zona (misal: Zona A): ").strip()
-            hasil = sll.cari_by_zona(zona)
-            if hasil:
-                print(f"\n  {len(hasil)} penampakan di {zona}:")
-                for d in hasil:
-                    print(f"  #{d['id_log']} — {d['nama']} | {d['aktivitas']} | {d['waktu']}")
-            else:
-                print(f"  [!] Tidak ada log di {zona}.")
-            input("\n  Tekan Enter untuk lanjut...")
+
+            try:
+
+                id_log = int(
+                    input("  ID Log: ")
+                )
+
+                lokasi_baru = input(
+                    "  Lokasi baru (kosongkan jika tidak diubah): "
+                ).strip()
+
+                aktivitas_baru = input(
+                    "  Aktivitas baru (kosongkan jika tidak diubah): "
+                ).strip()
+
+                sll.edit_log(
+                    id_log,
+                    lokasi_baru if lokasi_baru else None,
+                    aktivitas_baru if aktivitas_baru else None
+                )
+
+            except ValueError:
+
+                print(
+                    "  [!] ID log harus berupa angka."
+                )
+
+        # ======================================================
+        # 5. Hapus Log
+        # ======================================================
 
         elif pilihan == "5":
+
             try:
-                id_log = int(input("  Nomor log: ").strip())
-                sll.tampilkan_detail(id_log)
+
+                id_log = int(
+                    input(
+                        "  Nomor log yang akan dihapus: "
+                    ).strip()
+                )
+
+                sll.hapus_log(id_log)
+
             except ValueError:
-                print("  [!] Masukkan angka yang valid.")
-            input("\n  Tekan Enter untuk lanjut...")
+
+                print(
+                    "  [!] Masukkan angka yang valid."
+                )
+
+        # ======================================================
+        # 6. Statistik
+        # ======================================================
 
         elif pilihan == "6":
-            try:
-                id_log = int(input("  Nomor log yang akan dihapus: ").strip())
-                sll.hapus_log(id_log)
-            except ValueError:
-                print("  [!] Masukkan angka yang valid.")
 
-        elif pilihan == "7":
             sll.statistik_penampakan()
-            input("\n  Tekan Enter untuk lanjut...")
+
+            input(
+                "\n  Tekan Enter untuk lanjut..."
+            )
+
+        # ======================================================
+        # 0. Keluar
+        # ======================================================
 
         elif pilihan == "0":
+
             break
+
         else:
-            print("  [!] Pilihan tidak valid.")
+
+            print(
+                "  [!] Pilihan tidak valid."
+            )

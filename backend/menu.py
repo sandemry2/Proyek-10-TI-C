@@ -21,7 +21,7 @@ from data_dummy_ekosistem import (
     stack_undo,
     log_penampakan,
     galeri_foto,
-    jadwal_patroli,
+    patroli_cll,
     hash_medis,
     simulasi_rantai_makanan,
     bubble_sort_usia,
@@ -220,8 +220,7 @@ def menu_utama():
 
             menu_log(
                 log_penampakan,
-                DAFTAR_SATWA,
-                pengguna_aktif
+                DAFTAR_SATWA
             )
 
         # ==============================
@@ -241,7 +240,8 @@ def menu_utama():
 
         elif pilih == "13":
 
-            menu_patroli(jadwal_patroli)
+            cll = patroli_cll() 
+            menu_patroli(cll) 
 
         # ==============================
         # MENU 14 - TREE

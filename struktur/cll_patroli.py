@@ -1,5 +1,4 @@
 """
-structures/cll_patroli.py — Anggota 3
 ══════════════════════════════════════
 Rotasi patroli keamanan zona konservasi menggunakan Circular Linked List (CLL).
 Node terakhir selalu menunjuk kembali ke node pertama (circular).

@@ -65,19 +65,20 @@ class QueueMedis:
                 item["keluhan"],
                 item["prioritas"],
                 item["waktu"],
-                simpan=False
+                simpan=False,
+                tampilkan=False
             )
 
     # ── Antrean medis ─────────────────────────
     def __len__(self):
         return self.ukuran
             
-    # ── Enqueue normal (masuk dari belakang) ─────────────────────────
     def enqueue(self, chip_id: str, nama: str, spesies: str,
-            zona: str, keluhan: str,
-            prioritas: str = "Normal",
-            waktu=None,
-            simpan=True):
+        zona: str, keluhan: str,
+        prioritas: str = "Normal",
+        waktu=None,
+        simpan=True,
+        tampilkan=True):
 
         data = {
             "chip_id": chip_id,
@@ -99,7 +100,8 @@ class QueueMedis:
             if self.tail is None:
                 self.tail = node
 
-            print(f"  [🚨] {nama} masuk antrean DARURAT (posisi 1).")
+            if tampilkan:
+                print(f"  [🚨] {nama} masuk antrean DARURAT (posisi 1).")
 
         else:
             # Masuk ke belakang antrean
@@ -111,7 +113,8 @@ class QueueMedis:
             if self.head is None:
                 self.head = node
 
-            print(f"  [✓] {nama} masuk antrean (posisi {self.ukuran + 1}).")
+            if tampilkan:
+                print(f"  [✓] {nama} masuk antrean (posisi {self.ukuran + 1}).")
 
         self.ukuran += 1
 
