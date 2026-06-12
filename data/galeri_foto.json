@@ -1,3 +1,102 @@
 [
-    
+    {
+        "id_foto": 1,
+        "chip_id": "SWA-001",
+        "nama": "Rimba",
+        "spesies": "Harimau Sumatera",
+        "nama_file": "rimba_berburu_0103.jpg",
+        "deskripsi": "Rimba mengintai mangsa di semak",
+        "tanggal": "2025-01-03",
+        "zona": "Zona A"
+    },
+    {
+        "id_foto": 2,
+        "chip_id": "SWA-006",
+        "nama": "Borno",
+        "spesies": "Orangutan Kalimantan",
+        "nama_file": "borno_makan_0105.jpg",
+        "deskripsi": "Borno makan buah ara di pohon",
+        "tanggal": "2025-01-05",
+        "zona": "Zona B"
+    },
+    {
+        "id_foto": 3,
+        "chip_id": "SWA-011",
+        "nama": "Agung",
+        "spesies": "Gajah Sumatera",
+        "nama_file": "agung_sungai_0107.jpg",
+        "deskripsi": "Agung menyeberang sungai besar",
+        "tanggal": "2025-01-07",
+        "zona": "Zona D"
+    },
+    {
+        "id_foto": 4,
+        "chip_id": "SWA-036",
+        "nama": "Garuda",
+        "spesies": "Elang Jawa",
+        "nama_file": "garuda_terbang_0110.jpg",
+        "deskripsi": "Garuda melayang di atas kanopi hutan",
+        "tanggal": "2025-01-10",
+        "zona": "Zona E"
+    },
+    {
+        "id_foto": 5,
+        "chip_id": "SWA-022",
+        "nama": "Jago",
+        "spesies": "Macan Tutul Jawa",
+        "nama_file": "jago_pohon_0112.jpg",
+        "deskripsi": "Jago beristirahat di cabang pohon",
+        "tanggal": "2025-01-12",
+        "zona": "Zona E"
+    },
+    {
+        "id_foto": 6,
+        "chip_id": "SWA-049",
+        "nama": "Croco",
+        "spesies": "Buaya Muara",
+        "nama_file": "croco_berjemur_0115.jpg",
+        "deskripsi": "Croco berjemur di tepi rawa gambut",
+        "tanggal": "2025-01-15",
+        "zona": "Zona C"
+    },
+    {
+        "id_foto": 7,
+        "chip_id": "SWA-045",
+        "nama": "Siama",
+        "spesies": "Siamang",
+        "nama_file": "siama_gelantung_0116.jpg",
+        "deskripsi": "Siama bergelantungan bersama pasangan",
+        "tanggal": "2025-01-16",
+        "zona": "Zona B"
+    },
+    {
+        "id_foto": 8,
+        "chip_id": "SWA-002",
+        "nama": "Luna",
+        "spesies": "Harimau Sumatera",
+        "nama_file": "luna_anak_0118.jpg",
+        "deskripsi": "Luna mengasuh dua anaknya di sarang",
+        "tanggal": "2025-01-18",
+        "zona": "Zona F"
+    },
+    {
+        "id_foto": 9,
+        "chip_id": "SWA-039",
+        "nama": "Rangka",
+        "spesies": "Rangkong Gading",
+        "nama_file": "rangka_sarang_0122.jpg",
+        "deskripsi": "Rangka sedang membangun sarang",
+        "tanggal": "2025-01-22",
+        "zona": "Zona B"
+    },
+    {
+        "id_foto": 10,
+        "chip_id": "SWA-003",
+        "nama": "Tegar",
+        "spesies": "Harimau Sumatera",
+        "nama_file": "tegar_teritori_0125.jpg",
+        "deskripsi": "Tegar menandai teritori dengan cakar",
+        "tanggal": "2025-01-25",
+        "zona": "Zona J"
+    }
 ]

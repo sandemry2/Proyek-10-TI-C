@@ -1,14 +1,5 @@
 [
     {
-        "chip_id": "SWA-007",
-        "nama": "Sari",
-        "spesies": "Orangutan Borneo",
-        "zona": "Zona I",
-        "keluhan": "Nafsu makan menurun",
-        "prioritas": "Normal",
-        "waktu": "15:07:32"
-    },
-    {
         "chip_id": "SWA-001",
         "nama": "Rimba",
         "spesies": "Harimau Sumatera",
@@ -25,5 +16,14 @@
         "keluhan": "Pemeriksaan rutin",
         "prioritas": "Normal",
         "waktu": "15:08:23"
+    },
+    {
+        "chip_id": "SWA-003",
+        "nama": "Tegar",
+        "spesies": "Harimau Sumatera",
+        "zona": "Zona J",
+        "keluhan": "rabun",
+        "prioritas": "Normal",
+        "waktu": "07:07:05"
     }
 ]

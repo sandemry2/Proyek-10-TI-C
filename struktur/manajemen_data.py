@@ -1,6 +1,4 @@
 """
-structures/manajemen_data.py — Anggota 2
-════════════════════════════════════════
 Implementasi struktur data dasar:
   - List       : daftar spesies dan populasi satwa
   - Tuple      : koordinat geografis habitat (read-only)

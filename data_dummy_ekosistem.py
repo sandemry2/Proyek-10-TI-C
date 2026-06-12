@@ -3,9 +3,6 @@
 # 50 data satwa + semua kebutuhan struktur data
 # ============================================================
 
-# ─────────────────────────────────────────────────────────────
-# 1. LIST — Daftar Spesies Satwa (20 spesies)
-# ─────────────────────────────────────────────────────────────
 from struktur.queue_medis import QueueMedis
 from struktur.stack_undo import StackUndo
 from struktur.sll_log import SLLLog
@@ -13,63 +10,8 @@ from struktur.dll_galeri import DLLGaleri
 from struktur.cll_patroli import CLLPatroli, menu_patroli
 
 
-daftar_spesies = [
-    "Harimau Sumatera",     # 1
-    "Orangutan Borneo",     # 2
-    "Gajah Sumatera",       # 3
-    "Badak Sumatera",       # 4
-    "Beruang Madu",         # 5
-    "Macan Tutul Jawa",     # 6
-    "Rusa Sambar",          # 7
-    "Tapir Asia",           # 8
-    "Binturong",            # 9
-    "Trenggiling Sunda",    # 10
-    "Elang Jawa",           # 11
-    "Rangkong Gading",      # 12
-    "Kucing Batu",          # 13
-    "Bekantan",             # 14
-    "Siamang",              # 15
-    "Landak Sumatera",      # 16
-    "Musang Luwak",         # 17
-    "Buaya Senyulong",      # 18
-    "Ular Sanca Batik",     # 19
-    "Kura-kura Hutan",      # 20
-]
-
 # ─────────────────────────────────────────────────────────────
-# 2. TUPLE — Koordinat Geografis Habitat (10 zona)
-# ─────────────────────────────────────────────────────────────
-koordinat_habitat = [
-    ("Zona A - Hutan Primer Utara",     (2.3456,  101.7823)),
-    ("Zona B - Hutan Sekunder Timur",   (2.1234,  102.1045)),
-    ("Zona C - Rawa Gambut Barat",      (1.9876,  101.4567)),
-    ("Zona D - Tepi Sungai Selatan",    (1.7654,  101.9321)),
-    ("Zona E - Savana Tengah",          (2.0011,  101.6789)),
-    ("Zona F - Pegunungan Barat Laut",  (2.5678,  101.3456)),
-    ("Zona G - Pantai Timur",           (1.8900,  102.3456)),
-    ("Zona H - Hutan Mangrove",         (1.6543,  102.0987)),
-    ("Zona I - Lembah Terlindung",      (2.4321,  101.8654)),
-    ("Zona J - Dataran Tinggi",         (2.6789,  101.5432)),
-]
-
-# ─────────────────────────────────────────────────────────────
-# 3. SET — Spesies Unik per Zona (tanpa duplikasi)
-# ─────────────────────────────────────────────────────────────
-spesies_zona = {
-    "Zona A": {"Harimau Sumatera", "Tapir Asia", "Rusa Sambar", "Beruang Madu", "Trenggiling Sunda"},
-    "Zona B": {"Orangutan Borneo", "Siamang", "Rangkong Gading", "Binturong", "Kucing Batu"},
-    "Zona C": {"Buaya Senyulong", "Ular Sanca Batik", "Trenggiling Sunda", "Bekantan", "Kura-kura Hutan"},
-    "Zona D": {"Gajah Sumatera", "Rusa Sambar", "Tapir Asia", "Musang Luwak", "Landak Sumatera"},
-    "Zona E": {"Macan Tutul Jawa", "Rusa Sambar", "Elang Jawa", "Musang Luwak", "Beruang Madu"},
-    "Zona F": {"Badak Sumatera", "Harimau Sumatera", "Tapir Asia", "Beruang Madu", "Kucing Batu"},
-    "Zona G": {"Buaya Senyulong", "Kura-kura Hutan", "Bekantan", "Rangkong Gading", "Elang Jawa"},
-    "Zona H": {"Bekantan", "Buaya Senyulong", "Ular Sanca Batik", "Kura-kura Hutan", "Musang Luwak"},
-    "Zona I": {"Orangutan Borneo", "Siamang", "Binturong", "Landak Sumatera", "Trenggiling Sunda"},
-    "Zona J": {"Elang Jawa", "Rangkong Gading", "Macan Tutul Jawa", "Harimau Sumatera", "Badak Sumatera"},
-}
-
-# ─────────────────────────────────────────────────────────────
-# 4. DICTIONARY — 50 Data Satwa berdasarkan Chip ID
+#  DICTIONARY — 50 Data Satwa berdasarkan Chip ID - menu.py
 # ─────────────────────────────────────────────────────────────
 data_satwa = {
     # ── Harimau Sumatera (5 ekor) ──
@@ -141,24 +83,24 @@ data_satwa = {
 }
 
 # ─────────────────────────────────────────────────────────────
-# 5. STACK — Riwayat Undo Input Data Pengamatan (10 aksi)
+# STACK — Riwayat Undo Input Data Pengamatan (10 aksi)
 #    push = append()  |  pop = pop()
 # ─────────────────────────────────────────────────────────────
 stack_undo = StackUndo()
 
 # ─────────────────────────────────────────────────────────────
-# 6. QUEUE — Antrean Pemeriksaan Medis (15 satwa, FIFO)
+# QUEUE — Antrean Pemeriksaan Medis (15 satwa, FIFO)
 # ─────────────────────────────────────────────────────────────
 
 queue_medis = QueueMedis()
 
 # ─────────────────────────────────────────────────────────────
-# 7. SINGLE LINKED LIST — Log Penampakan Satwa (20 node)
+# SINGLE LINKED LIST — Log Penampakan Satwa (20 node)
 # ─────────────────────────────────────────────────────────────
 log_penampakan = SLLLog()
 
 # ─────────────────────────────────────────────────────────────
-# 8. DOUBLE LINKED LIST — Galeri Foto Satwa (10 node)
+# DOUBLE LINKED LIST — Galeri Foto Satwa (10 node)
 # ─────────────────────────────────────────────────────────────
 
 data_galeri = [
@@ -258,7 +200,7 @@ galeri_foto = DLLGaleri()
 galeri_foto.load_data(data_galeri)
 
 # ─────────────────────────────────────────────────────────────
-# 9. CIRCULAR LINKED LIST — Rotasi Patroli Keamanan
+# CIRCULAR LINKED LIST — Rotasi Patroli Keamanan
 # ─────────────────────────────────────────────────────────────
 def patroli_cll():
     cll = CLLPatroli()
@@ -272,7 +214,7 @@ def patroli_cll():
 
 
 # ─────────────────────────────────────────────────────────────
-# 10. TREE — Taksonomi Biologis Satwa
+# TREE — Taksonomi Biologis Satwa
 # ─────────────────────────────────────────────────────────────
 taksonomi_tree = {
     "Animalia": {
@@ -308,7 +250,7 @@ taksonomi_tree = {
 }
 
 # ─────────────────────────────────────────────────────────────
-# 11. GRAPH — Peta Habitat & Jalur Migrasi (adjacency list + bobot km)
+# GRAPH — Peta Habitat & Jalur Migrasi (adjacency list + bobot km)
 # ─────────────────────────────────────────────────────────────
 peta_migrasi = {
     "Zona A": [("Zona B", 12.5), ("Zona D", 8.3),  ("Zona F", 15.1)],
@@ -324,7 +266,7 @@ peta_migrasi = {
 }
 
 # ─────────────────────────────────────────────────────────────
-# 12. HASH TABLE — Data Rekam Medis (10 record)
+# HASH TABLE — Data Rekam Medis (10 record)
 # ─────────────────────────────────────────────────────────────
 hash_medis = {
     "MED-001": {"chip_id": "SWA-016", "tanggal": "2025-01-02", "diagnosa": "Luka infeksi kaki", "obat": "Amoksisilin 500mg",  "dokter": "drh. Rina"},
@@ -339,84 +281,17 @@ hash_medis = {
     "MED-010": {"chip_id": "SWA-049", "tanggal": "2024-11-30", "diagnosa": "Sehat",             "obat": "-",                  "dokter": "drh. Rina"},
 }
 
-# ─────────────────────────────────────────────────────────────
-# 13. OOP — Class Animal, Habitat, Ranger
-# ─────────────────────────────────────────────────────────────
-class Animal:
-    def __init__(self, chip_id, nama, spesies, usia, berat_kg, zona, status_kepunahan, jenis_kelamin):
-        self.chip_id          = chip_id
-        self.nama             = nama
-        self.spesies          = spesies
-        self.usia             = usia
-        self.berat_kg         = berat_kg
-        self.zona             = zona
-        self.status_kepunahan = status_kepunahan
-        self.jenis_kelamin    = jenis_kelamin
 
-    def info(self):
-        return (f"[{self.chip_id}] {self.nama} ({self.spesies}) | "
-                f"{self.usia} thn | {self.berat_kg} kg | {self.zona} | {self.status_kepunahan}")
-
-    def __repr__(self):
-        return f"Animal({self.chip_id}, {self.nama})"
-
-
-class Habitat:
-    def __init__(self, kode_zona, nama_zona, koordinat, luas_ha, kapasitas, kondisi, ancaman):
-        self.kode_zona = kode_zona
-        self.nama_zona = nama_zona
-        self.koordinat = koordinat
-        self.luas_ha   = luas_ha
-        self.kapasitas = kapasitas
-        self.kondisi   = kondisi
-        self.ancaman   = ancaman
-
-    def info(self):
+def info(self):
         return (f"[{self.kode_zona}] {self.nama_zona} | {self.luas_ha} ha | "
                 f"Kondisi: {self.kondisi} | Ancaman: {self.ancaman}")
 
-    def __repr__(self):
+def __repr__(self):
         return f"Habitat({self.kode_zona}, {self.nama_zona})"
 
 
-class Ranger:
-    def __init__(self, id_ranger, nama, zona_tugas, shift, no_hp):
-        self.id_ranger  = id_ranger
-        self.nama       = nama
-        self.zona_tugas = zona_tugas
-        self.shift      = shift
-        self.no_hp      = no_hp
-
-    def info(self):
-        return (f"[{self.id_ranger}] {self.nama} | Zona: {self.zona_tugas} | "
-                f"Shift: {self.shift} | HP: {self.no_hp}")
-
-    def __repr__(self):
-        return f"Ranger({self.id_ranger}, {self.nama})"
-
-
-animals_obj = [Animal(k, v["nama"], v["spesies"], v["usia"], v["berat_kg"],
-                      v["zona"], v["status_kepunahan"], v["jenis_kelamin"])
-               for k, v in list(data_satwa.items())[:5]]
-
-habitats_obj = [
-    Habitat("Zona A", "Hutan Primer Utara",    (2.3456, 101.7823), 1200, 50, "Baik",     "Perambahan rendah"),
-    Habitat("Zona B", "Hutan Sekunder Timur",  (2.1234, 102.1045), 800,  35, "Cukup",    "Perambahan sedang"),
-    Habitat("Zona C", "Rawa Gambut Barat",     (1.9876, 101.4567), 600,  25, "Terancam", "Kebakaran & drainase"),
-    Habitat("Zona D", "Tepi Sungai Selatan",   (1.7654, 101.9321), 950,  40, "Baik",     "Pendangkalan sungai"),
-    Habitat("Zona E", "Savana Tengah",         (2.0011, 101.6789), 1100, 45, "Cukup",    "Kekeringan musiman"),
-]
-
-rangers_obj = [
-    Ranger("RNG-01", "Budi Santoso",   "Zona A", "Pagi",  "0812-3456-7890"),
-    Ranger("RNG-02", "Andi Pratama",   "Zona B", "Pagi",  "0813-2345-6789"),
-    Ranger("RNG-03", "Citra Lestari",  "Zona C", "Siang", "0814-3456-7891"),
-    Ranger("RNG-04", "Dewi Anggraini", "Zona D", "Siang", "0815-4567-8901"),
-    Ranger("RNG-05", "Eko Prasetyo",   "Zona E", "Malam", "0816-5678-9012"),
-]
-
 # ─────────────────────────────────────────────────────────────
-# 14. SORTING — Bubble Sort (usia) & Selection Sort (berat)
+# SORTING — Bubble Sort (usia) & Selection Sort (berat)
 # ─────────────────────────────────────────────────────────────
 data_sorting = [{"chip_id": k, "nama": v["nama"], "usia": v["usia"], "berat_kg": v["berat_kg"]}
                 for k, v in data_satwa.items()]
@@ -447,28 +322,9 @@ data_kepunahan = sorted(
     key=lambda x: urutan_level[x["status_kepunahan"]]
 )
 
-# ─────────────────────────────────────────────────────────────
-# 15. SEARCHING — Linear Search (zona) & Binary Search (chip_id)
-# ─────────────────────────────────────────────────────────────
-def linear_search_zona(target_zona):
-    return [{"chip_id": k, **v} for k, v in data_satwa.items() if v["zona"] == target_zona]
-
-sorted_satwa = sorted([{"chip_id": k, **v} for k, v in data_satwa.items()], key=lambda x: x["chip_id"])
-
-def binary_search_chip(target_id):
-    low, high = 0, len(sorted_satwa) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        if sorted_satwa[mid]["chip_id"] == target_id:
-            return sorted_satwa[mid]
-        elif sorted_satwa[mid]["chip_id"] < target_id:
-            low = mid + 1
-        else:
-            high = mid - 1
-    return None
 
 # ─────────────────────────────────────────────────────────────
-# 16. REKURSIF — Simulasi Rantai Makanan
+#  REKURSIF — Simulasi Rantai Makanan
 # ─────────────────────────────────────────────────────────────
 rantai_makanan = {
     "Harimau Sumatera":  ["Rusa Sambar", "Tapir Asia", "Beruang Madu"],
@@ -493,23 +349,7 @@ def simulasi_rantai_makanan(predator, kedalaman=0, maks=3):
         simulasi_rantai_makanan(mangsa, kedalaman + 1, maks)
 
 # ─────────────────────────────────────────────────────────────
-# 17. DATA SENSOR HABITAT
-# ─────────────────────────────────────────────────────────────
-data_sensor = [
-    {"zona": "Zona A", "timestamp": "2025-01-30 06:00", "suhu_C": 26.5, "kelembaban_pct": 82, "curah_hujan_mm": 0.0, "kualitas_udara": "Baik"},
-    {"zona": "Zona A", "timestamp": "2025-01-30 12:00", "suhu_C": 31.2, "kelembaban_pct": 71, "curah_hujan_mm": 0.0, "kualitas_udara": "Baik"},
-    {"zona": "Zona B", "timestamp": "2025-01-30 06:00", "suhu_C": 25.8, "kelembaban_pct": 85, "curah_hujan_mm": 2.5, "kualitas_udara": "Baik"},
-    {"zona": "Zona B", "timestamp": "2025-01-30 12:00", "suhu_C": 29.4, "kelembaban_pct": 78, "curah_hujan_mm": 0.0, "kualitas_udara": "Baik"},
-    {"zona": "Zona C", "timestamp": "2025-01-30 06:00", "suhu_C": 27.1, "kelembaban_pct": 91, "curah_hujan_mm": 5.0, "kualitas_udara": "Cukup"},
-    {"zona": "Zona C", "timestamp": "2025-01-30 12:00", "suhu_C": 30.0, "kelembaban_pct": 88, "curah_hujan_mm": 1.2, "kualitas_udara": "Cukup"},
-    {"zona": "Zona D", "timestamp": "2025-01-30 06:00", "suhu_C": 25.3, "kelembaban_pct": 80, "curah_hujan_mm": 0.0, "kualitas_udara": "Baik"},
-    {"zona": "Zona D", "timestamp": "2025-01-30 12:00", "suhu_C": 32.1, "kelembaban_pct": 68, "curah_hujan_mm": 0.0, "kualitas_udara": "Baik"},
-    {"zona": "Zona E", "timestamp": "2025-01-30 06:00", "suhu_C": 24.9, "kelembaban_pct": 75, "curah_hujan_mm": 0.0, "kualitas_udara": "Baik"},
-    {"zona": "Zona E", "timestamp": "2025-01-30 12:00", "suhu_C": 34.5, "kelembaban_pct": 60, "curah_hujan_mm": 0.0, "kualitas_udara": "Cukup"},
-]
-
-# ─────────────────────────────────────────────────────────────
-# 18. STATUS HABITAT DAN LINGKUNGAN
+# STATUS HABITAT DAN LINGKUNGAN
 # ─────────────────────────────────────────────────────────────
 status_habitat = {
     "Zona A": {"nama": "Hutan Primer Utara",    "luas_ha": 1200, "kondisi": "Baik",     "ancaman": "Perambahan rendah",    "satwa": 8,  "kapasitas": 50, "tutupan_pohon_pct": 92},
@@ -524,154 +364,3 @@ status_habitat = {
     "Zona J": {"nama": "Dataran Tinggi",        "luas_ha": 900,  "kondisi": "Cukup",    "ancaman": "Perburuan ilegal",     "satwa": 4,  "kapasitas": 28, "tutupan_pohon_pct": 78},
 }
 
-# ─────────────────────────────────────────────────────────────
-# MAIN — Demo semua fitur
-# ─────────────────────────────────────────────────────────────
-if __name__ == "__main__":
-    SEP = "=" * 62
-
-    print(SEP)
-    print("   SIMULASI EKOSISTEM - DATA DUMMY (Kelompok 10)")
-    print(SEP)
-    print(f"\n Total satwa terdaftar : {len(data_satwa)}")
-    print(f" Total spesies         : {len(daftar_spesies)}")
-    print(f" Total zona habitat    : {len(koordinat_habitat)}")
-    print(f" Antrean medis         : {len(queue_medis)}")
-    print(f" Log penampakan        : {len(log_penampakan)}")
-    print(f" Foto galeri           : {len(galeri_foto)}")
-    print(f" Record medis          : {len(hash_medis)}")
-
-    print(f"\n{'-'*62}")
-    print(" [OOP] Info Animal (5 pertama):")
-    for a in animals_obj:
-        print(" ", a.info())
-
-    print(f"\n{'-'*62}")
-    print(" [OOP] Info Habitat:")
-    for h in habitats_obj:
-        print(" ", h.info())
-
-    print(f"\n{'-'*62}")
-    print(" [OOP] Info Ranger:")
-    for r in rangers_obj:
-        print(" ", r.info())
-
-    print(f"\n{'-'*62}")
-    print(" [REKURSIF] Rantai Makanan: Harimau Sumatera (kedalaman 2)")
-    simulasi_rantai_makanan("Harimau Sumatera", maks=2)
-
-    print(f"\n{'-'*62}")
-    print(" [LINEAR SEARCH] Satwa di Zona D:")
-    for s in linear_search_zona("Zona D"):
-        print(f"  {s['chip_id']} - {s['nama']} ({s['spesies']})")
-
-    print(f"\n{'-'*62}")
-    print(" [BINARY SEARCH] Cari SWA-039:")
-    hasil = binary_search_chip("SWA-039")
-    print(f"  Ditemukan -> {hasil['nama']} ({hasil['spesies']}) | {hasil['zona']}")
-
-    print(f"\n{'-'*62}")
-    print(" [BUBBLE SORT] 5 Satwa Termuda:")
-    for s in bubble_sort_usia(data_sorting)[:5]:
-        print(f"  {s['chip_id']} {s['nama']:10s} usia={s['usia']} thn")
-
-    print(f"\n{'-'*62}")
-    print(" [SELECTION SORT] 5 Satwa Terberat:")
-    for s in selection_sort_berat(data_sorting)[:5]:
-        print(f"  {s['chip_id']} {s['nama']:10s} berat={s['berat_kg']} kg")
-
-    print(f"\n{'-'*62}")
-    print(" [SORTING KEPUNAHAN] 10 Teratas (Kritis -> Rentan):")
-    for s in data_kepunahan[:10]:
-        print(f"  {s['status_kepunahan']:10s} | {s['nama']:10s} | {s['spesies']}")
-
-    print(f"\n{'-'*62}")
-    print(" [QUEUE] Antrean Medis (3 terdepan):")
-
-    current = queue_medis.head
-    count = 0
-
-    while current and count < 3:
-        data = current.data
-        print(
-            f"  [{data['chip_id']}] "
-            f"{data['nama']:8s} | "
-            f"{data['prioritas']:8s} | "
-            f"{data['keluhan']}"
-    )
-
-    current = current.next
-    count += 1
-
-    print(f"\n{'-'*62}")
-    print(" [STACK] 3 Aksi Undo Terakhir:")
-    for u in stack_undo.stack[-3:]:
-        print(
-            f"  {u['aksi']:6s} | "
-            f"{u['chip_id']} | "
-            f"{u['field']} : "
-            f"{u['nilai_lama']} -> {u['nilai_baru']}"
-        )
-
-    print(f"\n{SEP}")
-    print(" Selesai. 50 satwa (SWA-001 s/d SWA-050) + semua struktur data.")
-    print(SEP)
-
-
-#=========================================
-"""
-═════════════════════════════════════════
-Fungsi untuk mengisi data awal Queue, Stack, SLL, DLL, CLL
-agar program langsung bisa didemonstrasikan.
-
-"""
-
-from struktur.queue_medis import QueueMedis
-from struktur.stack_undo  import StackUndo
-from struktur.sll_log     import SLLLog
-from struktur.dll_galeri  import DLLGaleri
-from struktur.cll_patroli import CLLPatroli
-
-
-def isi_sll(sll: SLLLog, daftar_satwa: list):
-    """Isi log penampakan dengan data awal."""
-    catatan = [
-        ("A001", "Raja",      "Panthera tigris",  "Zona A", "Dekat sungai utara",  "Berburu",     "Budi Santoso"),
-        ("A008", "Rusa1",     "Cervus unicolor",  "Zona A", "Padang rumput timur", "Merumput",    "Budi Santoso"),
-        ("A006", "Orangtan1", "Pongo pygmaeus",   "Zona D", "Pohon ara besar",     "Makan buah",  "Rina Wijaya"),
-        ("A003", "Gajah1",    "Elephas maximus",  "Zona B", "Sumber air",          "Minum",       "Agus Pratama"),
-        ("A010", "Tapir1",    "Tapirus indicus",  "Zona C", "Semak rimbun",        "Bersembunyi", "Budi Santoso"),
-        ("A001", "Raja",      "Panthera tigris",  "Zona A", "Batas zona A-B",      "Menjelajah",  "Rina Wijaya"),
-    ]
-    
-    for chip_id, nama, spesies, zona, lokasi, aktivitas, petugas in catatan:
-        sll.tambah_log(chip_id, nama, spesies, zona, lokasi, aktivitas, petugas)
-
-
-def isi_dll(dll: DLLGaleri, daftar_satwa: list):
-    """Isi galeri foto dengan data awal."""
-    foto = [
-        ("A001", "Raja",      "Panthera tigris",           "raja_berburu_01.jpg",   "Raja sedang berburu rusa di tepi sungai",        "2025-01-10", "Zona A"),
-        ("A003", "Gajah1",    "Elephas maximus",            "gajah1_minum_01.jpg",   "Gajah1 minum di sumber air bersama kawanan",     "2025-01-11", "Zona B"),
-        ("A006", "Orangtan1", "Pongo pygmaeus",             "orangtan1_makan_01.jpg","Orangtan1 memakan buah ara di puncak pohon",     "2025-01-12", "Zona D"),
-        ("A005", "Badak1",    "Dicerorhinus sumatrensis",   "badak1_istirahat.jpg",  "Badak1 beristirahat di bawah pohon rindang",     "2025-01-13", "Zona C"),
-        ("A008", "Rusa1",     "Cervus unicolor",            "rusa1_merumput.jpg",    "Rusa1 merumput di padang terbuka",               "2025-01-14", "Zona A"),
-        ("A010", "Tapir1",    "Tapirus indicus",            "tapir1_sembunyi.jpg",   "Tapir1 bersembunyi di antara semak tebal",       "2025-01-15", "Zona C"),
-        ("A001", "Raja",      "Panthera tigris",            "raja_istirahat_01.jpg", "Raja beristirahat setelah berburu",              "2025-01-16", "Zona A"),
-    ]
-    for chip_id, nama, spesies, nama_file, deskripsi, tanggal, zona in foto:
-        dll.tambah_foto(chip_id, nama, spesies, nama_file, deskripsi, tanggal, zona)
-
-
-def isi_cll(cll: CLLPatroli):
-    """Isi jadwal patroli dengan data awal."""
-    jadwal = [
-        ("Zona A — Hutan Rimba Utara", "Budi Santoso",  "Pagi",  6),
-        ("Zona B — Padang Savana",     "Agus Pratama",  "Pagi",  6),
-        ("Zona C — Lembah Kabut",      "Rina Wijaya",   "Siang", 6),
-        ("Zona D — Hutan Gambut",      "Budi Santoso",  "Siang", 6),
-        ("Zona E — Sungai Besar",      "Agus Pratama",  "Malam", 8),
-    ]
-    for zona, ranger, shift, durasi in jadwal:
-        cll.tambah_patroli(zona, ranger, shift, durasi)
-    cll.mulai_patroli_pertama()
